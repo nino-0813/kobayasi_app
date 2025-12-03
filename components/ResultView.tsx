@@ -63,10 +63,10 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto pb-12 animate-fade-in px-4">
+    <div className="w-full max-w-5xl mx-auto pb-8 md:pb-12 animate-fade-in px-3 md:px-4">
       
       {/* Certificate-like Container */}
-      <div ref={certificateRef} className="bg-white relative shadow-2xl overflow-hidden md:p-12 p-6 border-8 border-double border-gray-100">
+      <div ref={certificateRef} className="bg-white relative shadow-2xl overflow-hidden md:p-12 p-4 md:p-6 border-4 md:border-8 border-double border-gray-100">
         
         {/* Decorative Borders */}
         <div className="absolute top-4 left-4 w-16 h-16 border-t-2 border-l-2 border-luxury-gold"></div>
@@ -80,7 +80,7 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
               <span className="text-luxury-gold font-serif text-sm tracking-[0.3em] uppercase">Mayan Astrology Certificate</span>
            </div>
            
-           <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-4 leading-normal">
+           <h1 className="text-2xl md:text-4xl font-serif font-bold text-gray-900 mb-4 leading-tight md:leading-normal px-2">
              {fortune.catchyTitle}
            </h1>
            
@@ -96,27 +96,27 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
         </div>
 
         {/* KIN Info Row */}
-        <div className="bg-gray-50 border border-gray-100 p-6 md:p-8 mb-10 flex flex-col md:flex-row justify-around items-center gap-6 md:gap-0">
+        <div className="bg-gray-50 border border-gray-100 p-5 md:p-8 mb-8 md:mb-10 flex flex-col md:flex-row justify-around items-center gap-5 md:gap-0">
            <div className="text-center">
-              <p className="text-xs text-gray-400 font-sans tracking-widest uppercase mb-1">KIN Number</p>
-              <p className="text-4xl font-serif text-luxury-golddark">{sign.kin}</p>
+              <p className="text-xs md:text-xs text-gray-500 font-sans tracking-widest uppercase mb-2">KIN Number</p>
+              <p className="text-3xl md:text-4xl font-serif text-luxury-golddark font-bold">{sign.kin}</p>
            </div>
            <div className="h-px w-full md:w-px md:h-12 bg-gray-300"></div>
            <div className="text-center">
-              <p className="text-xs text-gray-400 font-sans tracking-widest uppercase mb-1">Solar Seal</p>
-              <p className="text-2xl font-serif text-gray-800">{sign.solarSealNameJa}</p>
-              <p className="text-xs text-tiffany-500 font-sans">{sign.solarSealNameEn}</p>
+              <p className="text-xs md:text-xs text-gray-500 font-sans tracking-widest uppercase mb-2">Solar Seal</p>
+              <p className="text-xl md:text-2xl font-serif text-gray-900 font-bold">{sign.solarSealNameJa}</p>
+              <p className="text-xs md:text-xs text-tiffany-600 font-sans mt-1">{sign.solarSealNameEn}</p>
            </div>
            <div className="h-px w-full md:w-px md:h-12 bg-gray-300"></div>
            <div className="text-center">
-              <p className="text-xs text-gray-400 font-sans tracking-widest uppercase mb-1">Galactic Tone</p>
-              <p className="text-2xl font-serif text-gray-800">{sign.toneNameJa}</p>
-              <p className="text-xs text-tiffany-500 font-sans">Tone {sign.toneNumber}</p>
+              <p className="text-xs md:text-xs text-gray-500 font-sans tracking-widest uppercase mb-2">Galactic Tone</p>
+              <p className="text-xl md:text-2xl font-serif text-gray-900 font-bold">{sign.toneNameJa}</p>
+              <p className="text-xs md:text-xs text-tiffany-600 font-sans mt-1">Tone {sign.toneNumber}</p>
            </div>
         </div>
 
         {/* Content Columns */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-10">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-10">
            
            {/* Personality */}
            <div className="relative">
@@ -124,11 +124,11 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
                  <div className="p-2 bg-tiffany-100 rounded-full mr-3">
                    <Star className="w-5 h-5 text-tiffany-500" />
                  </div>
-                 <h3 className="text-lg font-serif font-bold text-gray-800 border-b border-gray-200 pb-1 flex-grow">
+                 <h3 className="text-base md:text-lg font-serif font-bold text-gray-900 border-b border-gray-200 pb-1 flex-grow">
                    本質と才能
                  </h3>
               </div>
-              <p className="text-gray-600 font-sans leading-loose text-justify">
+              <p className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
                 {fortune.personality}
               </p>
            </div>
@@ -139,11 +139,11 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
                  <div className="p-2 bg-rose-100 rounded-full mr-3">
                    <Zap className="w-5 h-5 text-rose-500" />
                  </div>
-                 <h3 className="text-lg font-serif font-bold text-gray-800 border-b border-gray-200 pb-1 flex-grow">
+                 <h3 className="text-base md:text-lg font-serif font-bold text-gray-900 border-b border-gray-200 pb-1 flex-grow">
                    魂のミッション
                  </h3>
               </div>
-              <p className="text-gray-600 font-sans leading-loose text-justify">
+              <p className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
                 {fortune.mission}
               </p>
            </div>
@@ -151,22 +151,22 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
         </div>
 
         {/* Advice Section */}
-        <div className="bg-tiffany-50 p-8 md:p-10 border border-tiffany-100 relative overflow-hidden">
-           <Quote className="absolute top-4 left-4 w-10 h-10 text-tiffany-200 transform rotate-180" />
+        <div className="bg-tiffany-50 p-6 md:p-10 border border-tiffany-100 relative overflow-hidden">
+           <Quote className="absolute top-4 left-4 w-8 h-8 md:w-10 md:h-10 text-tiffany-200 transform rotate-180" />
            
-           <div className="relative z-10 grid md:grid-cols-2 gap-8 items-start">
+           <div className="relative z-10 grid md:grid-cols-2 gap-6 md:gap-8 items-start">
               <div>
-                 <h3 className="text-tiffany-600 font-serif font-bold mb-3 flex items-center">
-                    <Heart className="w-5 h-5 mr-2" />
+                 <h3 className="text-tiffany-700 font-serif font-bold mb-3 md:mb-4 flex items-center text-base md:text-lg">
+                    <Heart className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                     エネルギーを高める秘訣
                  </h3>
-                 <p className="text-gray-700 font-sans leading-relaxed text-sm">
+                 <p className="text-gray-800 font-sans leading-relaxed text-base md:text-lg font-medium">
                     {fortune.energyAdvice}
                  </p>
               </div>
-              <div className="bg-white p-6 shadow-sm border border-white">
-                 <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 text-center">Todays Lucky Action</h4>
-                 <p className="text-xl font-serif text-center text-gray-800">
+              <div className="bg-white p-5 md:p-6 shadow-sm border border-white rounded-lg">
+                 <h4 className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 md:mb-4 text-center">Todays Lucky Action</h4>
+                 <p className="text-lg md:text-xl font-serif text-center text-gray-900 font-medium">
                     {fortune.luckyAction}
                  </p>
               </div>
@@ -176,54 +176,54 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
       </div>
 
       {/* Share and Download Buttons */}
-      <div className="mt-8 flex flex-col items-center gap-4">
-        <div className="flex flex-wrap justify-center gap-3">
+      <div className="mt-6 md:mt-8 flex flex-col items-center gap-3 md:gap-4">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 w-full max-w-md">
           {/* Download Button */}
           <button
             onClick={handleDownload}
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-tiffany-500 to-tiffany-600 text-white font-sans text-sm font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="inline-flex items-center px-4 md:px-6 py-2.5 md:py-3 bg-gradient-to-r from-tiffany-500 to-tiffany-600 text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[140px] justify-center"
           >
-            <Download className="w-4 h-4 mr-2" />
-            画像をダウンロード
+            <Download className="w-4 h-4 mr-1.5 md:mr-2" />
+            <span className="whitespace-nowrap">画像をダウンロード</span>
           </button>
 
           {/* Share Buttons */}
           <button
             onClick={handleShareTwitter}
-            className="inline-flex items-center px-5 py-3 bg-[#1DA1F2] text-white font-sans text-sm font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-[#1DA1F2] text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[100px] justify-center"
           >
-            <Twitter className="w-4 h-4 mr-2" />
+            <Twitter className="w-4 h-4 mr-1.5 md:mr-2" />
             Twitter
           </button>
 
           <button
             onClick={handleShareFacebook}
-            className="inline-flex items-center px-5 py-3 bg-[#1877F2] text-white font-sans text-sm font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-[#1877F2] text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[100px] justify-center"
           >
-            <Facebook className="w-4 h-4 mr-2" />
+            <Facebook className="w-4 h-4 mr-1.5 md:mr-2" />
             Facebook
           </button>
 
           <button
             onClick={handleShareLINE}
-            className="inline-flex items-center px-5 py-3 bg-[#06C755] text-white font-sans text-sm font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-[#06C755] text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[100px] justify-center"
           >
-            <MessageCircle className="w-4 h-4 mr-2" />
+            <MessageCircle className="w-4 h-4 mr-1.5 md:mr-2" />
             LINE
           </button>
 
           <button
             onClick={handleCopyLink}
-            className="inline-flex items-center px-5 py-3 bg-gray-600 text-white font-sans text-sm font-medium rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-gray-600 text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 w-full justify-center"
           >
             {copied ? (
               <>
-                <Check className="w-4 h-4 mr-2" />
+                <Check className="w-4 h-4 mr-1.5 md:mr-2" />
                 コピーしました
               </>
             ) : (
               <>
-                <Copy className="w-4 h-4 mr-2" />
+                <Copy className="w-4 h-4 mr-1.5 md:mr-2" />
                 リンクをコピー
               </>
             )}

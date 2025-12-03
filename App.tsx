@@ -50,7 +50,7 @@ const App: React.FC = () => {
         <div className="absolute bottom-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-50 rounded-full blur-[120px] opacity-60"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-8 md:py-12 min-h-screen flex flex-col items-center justify-center">
+      <div className="relative z-10 container mx-auto px-3 md:px-4 py-6 md:py-12 min-h-screen flex flex-col items-center justify-center">
         
         {/* Header Logo (Small) - Only visible on non-welcome screens */}
         {appState !== AppState.WELCOME && (

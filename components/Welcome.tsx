@@ -289,8 +289,8 @@ const Welcome: React.FC<WelcomeProps> = ({ onStart }) => {
 
         {/* Catch Copy Area */}
         <div className="glass-card p-6 md:p-8 rounded-lg mb-10 max-w-2xl mx-auto border-t-4 border-t-tiffany-500 shadow-lg">
-          <p className="text-gray-700 font-serif leading-8 text-lg">
-            古代マヤの叡智が、<br className="md:hidden" />あなたの<span className="text-rose-500 font-bold border-b border-rose-300">魂の刻印</span>を呼び覚ます。<br/>
+          <p className="text-gray-800 font-serif leading-relaxed text-base md:text-lg font-medium">
+            古代マヤの叡智が、<br className="md:hidden" />あなたの<span className="text-rose-600 font-bold border-b-2 border-rose-400">魂の刻印</span>を呼び覚ます。<br/>
             本当の自分に出会う旅へ、ようこそ。
           </p>
         </div>
@@ -298,17 +298,17 @@ const Welcome: React.FC<WelcomeProps> = ({ onStart }) => {
         {/* Luxurious Button */}
         <button 
           onClick={onStart}
-          className="group relative inline-flex items-center justify-center px-16 py-5 overflow-hidden transition-all duration-300 bg-gradient-to-b from-[#0ABAB5] to-[#008B8B] rounded-full shadow-[0_10px_20px_rgba(10,186,181,0.4)] hover:shadow-[0_15px_30px_rgba(10,186,181,0.6)] hover:-translate-y-1"
+          className="group relative inline-flex items-center justify-center px-12 md:px-16 py-4 md:py-5 overflow-hidden transition-all duration-300 bg-gradient-to-b from-[#0ABAB5] to-[#008B8B] rounded-full shadow-[0_10px_20px_rgba(10,186,181,0.4)] active:scale-95 md:hover:shadow-[0_15px_30px_rgba(10,186,181,0.6)] md:hover:-translate-y-1 w-full max-w-xs"
         >
-          <span className="absolute inset-0 bg-white/20 group-hover:bg-white/30 transition-all duration-300"></span>
-          <span className="relative flex items-center font-serif text-white text-xl font-bold tracking-widest">
-            <Sparkles className="w-5 h-5 mr-3 animate-pulse" />
+          <span className="absolute inset-0 bg-white/20 group-active:bg-white/30 md:group-hover:bg-white/30 transition-all duration-300"></span>
+          <span className="relative flex items-center font-serif text-white text-lg md:text-xl font-bold tracking-widest">
+            <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3 animate-pulse" />
             鑑定を始める
-            <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            <ChevronRight className="w-4 h-4 md:w-5 md:h-5 ml-2 group-active:translate-x-1 md:group-hover:translate-x-1 transition-transform" />
           </span>
         </button>
         
-        <p className="mt-8 text-gray-400 text-xs font-sans tracking-wider">
+        <p className="mt-8 text-gray-500 text-xs md:text-sm font-sans tracking-wider">
           ※ 結果は全てポジティブなメッセージで構成されています
         </p>
 

@@ -304,7 +304,7 @@ const Welcome: React.FC<WelcomeProps> = ({ onStart }) => {
           <span className="absolute inset-0 bg-white/25 group-active:bg-white/35 md:group-hover:bg-white/35 transition-all duration-300"></span>
           <span className="relative flex items-center font-serif text-white text-lg md:text-xl font-bold tracking-widest drop-shadow-lg">
             <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-2 md:mr-3 animate-pulse" />
-            鑑定を始める
+            無料鑑定を始める
             <ChevronRight className="w-4 h-4 md:w-5 md:h-5 ml-2 group-active:translate-x-1 md:group-hover:translate-x-1 transition-transform" />
           </span>
         </button>

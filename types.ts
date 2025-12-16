@@ -10,10 +10,11 @@ export interface MayanSign {
 export interface FortuneResult {
   catchyTitle: string;
   powerWord: string;
-  personality: string;
-  mission: string;
-  energyAdvice: string;
-  luckyAction: string;
+  essence: string; // 生まれ持った本質（変わらない軸）
+  misalignment: string; // 今のズレ（なぜ苦しいか）
+  phase: string; // 今のテーマ（人生フェーズ）
+  action: string; // 今日の一言アクション
+  guidance: string; // 個別診断への導線
 }
 
 export enum AppState {

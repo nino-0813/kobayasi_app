@@ -6,6 +6,7 @@ import ResultView from './components/ResultView';
 import { calculateMayanSign } from './services/mayanCalc';
 import { generateMayanFortune } from './services/geminiService';
 import { AppState, MayanSign, FortuneResult } from './types';
+import { ConcernType } from './types/Concern';
 
 const App: React.FC = () => {
   const [appState, setAppState] = useState<AppState>(AppState.WELCOME);
@@ -16,14 +17,14 @@ const App: React.FC = () => {
     setAppState(AppState.INPUT);
   };
 
-  const handleDateSubmit = async (date: Date) => {
+  const handleDateSubmit = async (date: Date, age: number, concern: ConcernType) => {
     try {
       setAppState(AppState.LOADING);
       
       const sign = calculateMayanSign(date);
       setMayanSign(sign);
 
-      const fortuneResult = await generateMayanFortune(sign);
+      const fortuneResult = await generateMayanFortune(sign, age, concern);
       setFortune(fortuneResult);
       
       setAppState(AppState.RESULT);

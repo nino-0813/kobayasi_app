@@ -1,18 +1,23 @@
 import { MayanSign, FortuneResult } from '../types';
+import { ConcernType } from '../types/Concern';
+import { buildDiagnosis } from './mayanDiagnosisBuilder';
 
 /**
  * API Route経由でマヤ暦の鑑定結果を生成
  * APIキーはサーバーサイドでのみ使用され、フロントエンドには露出しません
  */
-export const generateMayanFortune = async (sign: MayanSign): Promise<FortuneResult> => {
+export const generateMayanFortune = async (sign: MayanSign, age: number, concern: ConcernType): Promise<FortuneResult> => {
   try {
+    // 診断データを生成（20紋章 × 音 × 悩み別ズレ判定を完全に固定）
+    const diagnosis = buildDiagnosis(sign, age, concern);
+    
     // VercelのAPI Routeにリクエスト
     const response = await fetch('/api/fortune', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(sign),
+      body: JSON.stringify({ sign, age, concern, diagnosis }),
     });
 
     if (!response.ok) {
@@ -23,15 +28,22 @@ export const generateMayanFortune = async (sign: MayanSign): Promise<FortuneResu
     return fortuneResult;
   } catch (error) {
     console.error('API Error:', error);
-    // エラー時のフォールバック
-    return {
+    console.log('Using fallback diagnosis result');
+    // エラー時のフォールバック（診断データを使用）
+    const diagnosis = buildDiagnosis(sign, age, concern);
+    
+    // より詳細で「変わった」と感じられるフォールバック結果
+    const fallbackResult: FortuneResult = {
       catchyTitle: '魂が目覚める、運命の刻',
       powerWord: '天真爛漫の才',
-      personality:
-        'あなたの中に眠るのは、周囲を自然と幸福にする太陽のような輝きです。その優しさと強さは、多くの人々の道しるべとなるでしょう。あなたは生まれながらにして、人々の心に希望の光を灯す力を持っています。困難な状況でも、あなたの存在そのものが周囲に安心感と勇気を与えます。あなたの本質は、深い共感力と直感的な理解力によって、他人の痛みや喜びを敏感に感じ取り、適切な言葉や行動で支えることができるのです。この才能は、単なる優しさではなく、人々の人生を変えるほどの影響力を持っています。',
-      mission: 'あなたの魂のミッションは、愛と光を体現し、世界に調和をもたらすことです。この使命は、単なる理想ではなく、あなたがこの世に生まれてきた根本的な理由です。あなたは、争いや対立が生まれる場所に、理解と受容のエネルギーを届ける役割を担っています。具体的には、日常の小さな場面から、より大きな社会的な場面まで、あなたの存在そのものが調和を生み出します。この使命を果たすためには、まず自分自身を大切にし、内なる光を輝かせ続けることが重要です。あなたが輝けば輝くほど、周囲の人々も自然と光り始め、最終的には世界全体がより調和の取れた場所になっていくのです。',
-      energyAdvice: 'あなたのエネルギーを高める秘訣は、美しい音楽を聴きながら、ハーブティーを楽しむ時間を持つことです。この時間は、単なる休息ではなく、あなたの内なる声と対話し、魂を浄化する重要な儀式となります。音楽の振動は、あなたの感情や思考を整え、より深いリラックス状態へと導いてくれます。特に、自然の音やクラシック音楽、またはあなたの心に響くメロディーは、あなたのエネルギーを高次元へと引き上げてくれます。ハーブティーは、身体だけでなく、精神的なバランスも整えてくれます。カモミールやラベンダーなど、リラックス効果のあるハーブを選ぶことで、ストレスを解放し、新しい洞察を得ることができます。この時間を毎日、たとえ10分でも確保することで、あなたの直感力が研ぎ澄まされ、より良い判断ができるようになります。',
-      luckyAction: 'お気に入りの靴を丁寧に磨くこと',
+      essence: `あなたは本来、${diagnosis.seal.essence}。${diagnosis.seal.strength}。ただ、${diagnosis.seal.shadow}かもしれません。この本質は、あなたが生まれ持った変わらない軸です。周囲の人々は、あなたのこの特性に自然と引き寄せられ、安心感を得ています。困難な状況でも、あなたの存在そのものが周囲に希望の光を灯す力を持っているのです。`,
+      misalignment: `ただ今は、${diagnosis.misalignment}本当はまだ、${diagnosis.tone.message}これはダメな状態ではなく、流れを整えれば自然に動き出す時期です。あなたが悪いわけではなく、ただ今の使い方に少しズレが出ているだけなのです。`,
+      phase: `今のあなたの人生フェーズは、${diagnosis.tone.message}この時期は、あなたの本質を活かしながら、新しい可能性を探求していく時期なのです。完璧を求めず、動きながら学ぶことが大切です。`,
+      action: `今日意識してほしいのは「${diagnosis.seal.advice}」`,
+      guidance: 'もし「もっと具体的に知りたい」と感じたら、あなたの流れを個別で一緒に整理できます。',
     };
+    
+    console.log('Fallback result:', fallbackResult);
+    return fallbackResult;
   }
 };

@@ -1,9 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { MayanSign, FortuneResult } from '../types';
 import { Star, Zap, Heart, RefreshCw, Quote, Feather, Download, Share2, Twitter, Facebook, MessageCircle, Copy, Check } from 'lucide-react';
 import html2canvas from 'html2canvas';
-import MaskedText from './MaskedText';
-import LineModal from './LineModal';
 
 interface ResultViewProps {
   sign: MayanSign;
@@ -14,27 +12,6 @@ interface ResultViewProps {
 const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
   const certificateRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = React.useState(false);
-  const [isLineRegistered, setIsLineRegistered] = useState(false);
-  const [showLineModal, setShowLineModal] = useState(false);
-  
-  const LINE_URL = 'https://lin.ee/mxzzEFR';
-  const STORAGE_KEY = `line_registered_${sign.kin}`;
-
-  useEffect(() => {
-    // ローカルストレージから登録状態を確認
-    const registered = localStorage.getItem(STORAGE_KEY) === 'true';
-    setIsLineRegistered(registered);
-  }, [sign.kin, STORAGE_KEY]);
-
-  const handleUnlock = () => {
-    setShowLineModal(true);
-  };
-
-  const handleLineRegistered = () => {
-    localStorage.setItem(STORAGE_KEY, 'true');
-    setIsLineRegistered(true);
-    setShowLineModal(false);
-  };
 
   const shareText = `【マヤ暦占い】${fortune.catchyTitle}\n\nあなたの称号: ${fortune.powerWord}\nKIN番号: ${sign.kin}\n太陽の紋章: ${sign.solarSealNameJa}\n銀河の音: ${sign.toneNameJa}\n\n#マヤ暦 #マヤ暦占い #SunriseSoul`;
 
@@ -138,76 +115,76 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
            </div>
         </div>
 
-        {/* Content Columns */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-12 mb-8 md:mb-10">
+        {/* Content Sections */}
+        <div className="space-y-8 md:space-y-10 mb-8 md:mb-10">
            
-           {/* Personality */}
+           {/* 生まれ持った本質 */}
            <div className="relative">
               <div className="flex items-center mb-4">
                  <div className="p-2 bg-tiffany-100 rounded-full mr-3">
                    <Star className="w-5 h-5 text-tiffany-500" />
                  </div>
                  <h3 className="text-base md:text-lg font-serif font-bold text-gray-900 border-b border-gray-200 pb-1 flex-grow">
-                   本質と才能
+                   生まれ持った本質（変わらない軸）
                  </h3>
               </div>
-              <div className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
-                <MaskedText
-                  text={fortune.personality}
-                  isUnlocked={isLineRegistered}
-                  onUnlock={handleUnlock}
-                  previewLength={70}
-                />
-              </div>
+              <p className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
+                {fortune.essence}
+              </p>
            </div>
 
-           {/* Mission */}
+           {/* 今のズレ */}
            <div className="relative">
               <div className="flex items-center mb-4">
                  <div className="p-2 bg-rose-100 rounded-full mr-3">
                    <Zap className="w-5 h-5 text-rose-500" />
                  </div>
                  <h3 className="text-base md:text-lg font-serif font-bold text-gray-900 border-b border-gray-200 pb-1 flex-grow">
-                   魂のミッション
+                   今のズレ（なぜ苦しいか）
                  </h3>
               </div>
-              <div className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
-                <MaskedText
-                  text={fortune.mission}
-                  isUnlocked={isLineRegistered}
-                  onUnlock={handleUnlock}
-                  previewLength={70}
-                />
+              <p className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
+                {fortune.misalignment}
+              </p>
+           </div>
+
+           {/* 今のテーマ */}
+           <div className="relative">
+              <div className="flex items-center mb-4">
+                 <div className="p-2 bg-blue-100 rounded-full mr-3">
+                   <Heart className="w-5 h-5 text-blue-500" />
+                 </div>
+                 <h3 className="text-base md:text-lg font-serif font-bold text-gray-900 border-b border-gray-200 pb-1 flex-grow">
+                   今のテーマ（人生フェーズ）
+                 </h3>
               </div>
+              <p className="text-gray-700 md:text-gray-600 font-sans leading-relaxed md:leading-loose text-base md:text-base text-justify">
+                {fortune.phase}
+              </p>
            </div>
 
         </div>
 
-        {/* Advice Section */}
+        {/* Action Section */}
         <div className="bg-tiffany-50 p-6 md:p-10 border border-tiffany-100 relative overflow-hidden">
            <Quote className="absolute top-4 left-4 w-8 h-8 md:w-10 md:h-10 text-tiffany-200 transform rotate-180" />
            
-           <div className="relative z-10 grid md:grid-cols-2 gap-6 md:gap-8 items-start">
-              <div>
-                 <h3 className="text-tiffany-700 font-serif font-bold mb-3 md:mb-4 flex items-center text-base md:text-lg">
-                    <Heart className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                    エネルギーを高める秘訣
-                 </h3>
-                 <div className="text-gray-800 font-sans leading-relaxed text-base md:text-lg font-medium">
-                   <MaskedText
-                     text={fortune.energyAdvice}
-                     isUnlocked={isLineRegistered}
-                     onUnlock={handleUnlock}
-                     previewLength={70}
-                   />
-                 </div>
-              </div>
-              <div className="bg-white p-5 md:p-6 shadow-sm border border-white rounded-lg">
-                 <h4 className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 md:mb-4 text-center">Todays Lucky Action</h4>
+           <div className="relative z-10">
+              <div className="bg-white p-5 md:p-6 shadow-sm border border-white rounded-lg mb-6">
+                 <h4 className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 md:mb-4 text-center">今日の一言アクション</h4>
                  <p className="text-lg md:text-xl font-serif text-center text-gray-900 font-medium">
-                    {fortune.luckyAction}
+                    {fortune.action}
                  </p>
               </div>
+              
+              {/* 個別診断への導線 */}
+              {fortune.guidance && (
+                <div className="bg-gradient-to-r from-tiffany-100 to-tiffany-50 p-5 md:p-6 rounded-lg border border-tiffany-200">
+                  <p className="text-gray-800 font-sans leading-relaxed text-base md:text-lg text-center font-medium">
+                    {fortune.guidance}
+                  </p>
+                </div>
+              )}
            </div>
         </div>
 
@@ -279,13 +256,6 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
         </button>
       </div>
 
-      {/* LINE Modal */}
-      <LineModal
-        isOpen={showLineModal}
-        onClose={() => setShowLineModal(false)}
-        onRegistered={handleLineRegistered}
-        lineUrl={LINE_URL}
-      />
     </div>
   );
 };

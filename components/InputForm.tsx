@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 import { Calendar, ChevronRight } from 'lucide-react';
+import { ConcernType } from '../types/Concern';
 
 interface InputFormProps {
-  onSubmit: (date: Date) => void;
+  onSubmit: (date: Date, age: number, concern: ConcernType) => void;
 }
 
 const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
   const [year, setYear] = useState<number | ''>('');
   const [month, setMonth] = useState<number | ''>('');
   const [day, setDay] = useState<number | ''>('');
+  const [concern, setConcern] = useState<ConcernType>('work');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (year && month && day) {
       const date = new Date(Number(year), Number(month) - 1, Number(day));
-      onSubmit(date);
+      // 年齢を計算
+      const today = new Date();
+      let age = today.getFullYear() - Number(year);
+      const monthDiff = today.getMonth() - (Number(month) - 1);
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < Number(day))) {
+        age--;
+      }
+      onSubmit(date, age, concern);
     }
   };
 
@@ -94,6 +103,59 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
                   {days.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
+            </div>
+          </div>
+
+          {/* 悩み選択 */}
+          <div className="space-y-3">
+            <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest font-sans text-center">
+              今、一番気になっていることは？
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setConcern('work')}
+                className={`py-3 px-4 rounded-lg border-2 transition-all font-sans text-sm ${
+                  concern === 'work'
+                    ? 'bg-tiffany-50 border-tiffany-500 text-tiffany-700 font-medium'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-tiffany-300'
+                }`}
+              >
+                仕事・方向性
+              </button>
+              <button
+                type="button"
+                onClick={() => setConcern('money')}
+                className={`py-3 px-4 rounded-lg border-2 transition-all font-sans text-sm ${
+                  concern === 'money'
+                    ? 'bg-tiffany-50 border-tiffany-500 text-tiffany-700 font-medium'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-tiffany-300'
+                }`}
+              >
+                お金・収入
+              </button>
+              <button
+                type="button"
+                onClick={() => setConcern('relationship')}
+                className={`py-3 px-4 rounded-lg border-2 transition-all font-sans text-sm ${
+                  concern === 'relationship'
+                    ? 'bg-tiffany-50 border-tiffany-500 text-tiffany-700 font-medium'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-tiffany-300'
+                }`}
+              >
+                人間関係
+              </button>
+              <button
+                type="button"
+                onClick={() => setConcern('action')}
+                className={`py-3 px-4 rounded-lg border-2 transition-all font-sans text-sm ${
+                  concern === 'action'
+                    ? 'bg-tiffany-50 border-tiffany-500 text-tiffany-700 font-medium'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-tiffany-300'
+                }`}
+              >
+                行動が続かない
+              </button>
             </div>
           </div>
 

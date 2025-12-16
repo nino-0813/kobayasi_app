@@ -43,6 +43,8 @@
               'star-rotate': 'starRotate 15s linear infinite',
               'shimmer': 'shimmer 2s linear infinite',
               'scale-in': 'scaleIn 0.3s ease-out forwards',
+              'pulse-strong': 'pulseStrong 2s ease-in-out infinite',
+              'wiggle': 'wiggle 1s ease-in-out infinite',
             },
             keyframes: {
               fadeIn: {
@@ -98,6 +100,15 @@
               scaleIn: {
                 '0%': { opacity: '0', transform: 'scale(0.9)' },
                 '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              pulseStrong: {
+                '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(239, 68, 68, 0.7)' },
+                '50%': { transform: 'scale(1.05)', boxShadow: '0 0 0 10px rgba(239, 68, 68, 0)' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(0deg)' },
+                '25%': { transform: 'rotate(-3deg)' },
+                '75%': { transform: 'rotate(3deg)' },
               },
             },
           },
@@ -172,6 +183,15 @@
       @keyframes scaleIn {
         0% { opacity: 0; transform: scale(0.9); }
         100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes pulseStrong {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+        50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+      }
+      @keyframes wiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-3deg); }
+        75% { transform: rotate(3deg); }
       }
     </style>
   <script type="importmap">

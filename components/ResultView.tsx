@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { MayanSign, FortuneResult } from '../types';
-import { Star, Zap, Heart, RefreshCw, Quote, Feather, Download, Share2, Twitter, Facebook, MessageCircle, Copy, Check } from 'lucide-react';
-import html2canvas from 'html2canvas';
+import { Star, Zap, Heart, RefreshCw, Quote, Feather, Gift, Clock, MessageCircle, ExternalLink } from 'lucide-react';
 
 interface ResultViewProps {
   sign: MayanSign;
@@ -11,56 +10,6 @@ interface ResultViewProps {
 
 const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
   const certificateRef = useRef<HTMLDivElement>(null);
-  const [copied, setCopied] = React.useState(false);
-
-  const shareText = `【マヤ暦占い】${fortune.catchyTitle}\n\nあなたの称号: ${fortune.powerWord}\nKIN番号: ${sign.kin}\n太陽の紋章: ${sign.solarSealNameJa}\n銀河の音: ${sign.toneNameJa}\n\n#マヤ暦 #マヤ暦占い #SunriseSoul`;
-
-  const handleDownload = async () => {
-    if (!certificateRef.current) return;
-
-    try {
-      const canvas = await html2canvas(certificateRef.current, {
-        backgroundColor: '#ffffff',
-        scale: 2,
-        logging: false,
-        useCORS: true,
-      });
-
-      const link = document.createElement('a');
-      link.download = `mayan-astrology-kin${sign.kin}-${Date.now()}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    } catch (error) {
-      console.error('Error generating image:', error);
-      alert('画像のダウンロードに失敗しました。もう一度お試しください。');
-    }
-  };
-
-  const handleShareTwitter = () => {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'width=550,height=420');
-  };
-
-  const handleShareFacebook = () => {
-    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'width=550,height=420');
-  };
-
-  const handleShareLINE = () => {
-    const url = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`;
-    window.open(url, '_blank', 'width=550,height=420');
-  };
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error('Error copying link:', error);
-      alert('リンクのコピーに失敗しました。');
-    }
-  };
 
   return (
     <div className="w-full max-w-5xl mx-auto pb-8 md:pb-12 animate-fade-in px-3 md:px-4">
@@ -190,60 +139,61 @@ const ResultView: React.FC<ResultViewProps> = ({ sign, fortune, onReset }) => {
 
       </div>
 
-      {/* Share and Download Buttons */}
-      <div className="mt-6 md:mt-8 flex flex-col items-center gap-3 md:gap-4">
-        <div className="flex flex-wrap justify-center gap-2 md:gap-3 w-full max-w-md">
-          {/* Download Button */}
-          <button
-            onClick={handleDownload}
-            className="inline-flex items-center px-4 md:px-6 py-2.5 md:py-3 bg-gradient-to-r from-tiffany-500 to-tiffany-600 text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[140px] justify-center"
-          >
-            <Download className="w-4 h-4 mr-1.5 md:mr-2" />
-            <span className="whitespace-nowrap">画像をダウンロード</span>
-          </button>
-
-          {/* Share Buttons */}
-          <button
-            onClick={handleShareTwitter}
-            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-[#1DA1F2] text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[100px] justify-center"
-          >
-            <Twitter className="w-4 h-4 mr-1.5 md:mr-2" />
-            Twitter
-          </button>
-
-          <button
-            onClick={handleShareFacebook}
-            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-[#1877F2] text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[100px] justify-center"
-          >
-            <Facebook className="w-4 h-4 mr-1.5 md:mr-2" />
-            Facebook
-          </button>
-
-          <button
-            onClick={handleShareLINE}
-            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-[#06C755] text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 flex-1 min-w-[100px] justify-center"
-          >
-            <MessageCircle className="w-4 h-4 mr-1.5 md:mr-2" />
-            LINE
-          </button>
-
-          <button
-            onClick={handleCopyLink}
-            className="inline-flex items-center px-4 md:px-5 py-2.5 md:py-3 bg-gray-600 text-white font-sans text-xs md:text-sm font-medium rounded-full shadow-lg active:scale-95 md:hover:scale-105 transition-all duration-200 w-full justify-center"
-          >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4 mr-1.5 md:mr-2" />
-                コピーしました
-              </>
-            ) : (
-              <>
-                <Copy className="w-4 h-4 mr-1.5 md:mr-2" />
-                リンクをコピー
-              </>
-            )}
-          </button>
+      {/* LINE誘導セクション */}
+      <div className="mt-8 md:mt-10 bg-white rounded-2xl p-6 md:p-8 shadow-xl border-2 border-gray-200">
+        {/* 限定クーポンバッジ */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-gradient-to-r from-rose-500 to-rose-600 text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-2 border-2 border-white animate-pulse-strong relative overflow-hidden group cursor-pointer">
+            {/* 光るエフェクト */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            <Gift className="w-5 h-5 md:w-6 md:h-6 animate-bounce relative z-10" style={{ animationDuration: '1.5s' }} />
+            <span className="font-bold text-base md:text-lg font-sans tracking-wide relative z-10 animate-wiggle">限定クーポン</span>
+          </div>
         </div>
+
+        {/* メインコンテンツ */}
+        <div className="text-center mb-6">
+          <h3 className="text-gray-900 font-serif font-bold text-xl md:text-2xl mb-4">
+            公式LINE登録でセッション時間が延長！
+          </h3>
+          <div className="flex items-center justify-center gap-4 mb-5">
+            <div className="bg-gray-100 px-5 py-3 rounded-lg border-2 border-gray-300">
+              <div className="text-gray-500 text-xs font-sans mb-1">通常</div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-gray-400" />
+                <span className="text-gray-600 font-bold text-lg line-through">45分</span>
+              </div>
+            </div>
+            <div className="text-gray-400 text-2xl font-bold">→</div>
+            <div className="bg-gradient-to-br from-[#06C755] to-[#05B84A] px-5 py-3 rounded-lg shadow-lg border-2 border-[#06C755]">
+              <div className="text-white text-xs font-sans mb-1 font-bold">クーポン適用</div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-white" />
+                <span className="text-white font-bold text-xl">60分</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-gray-700 font-sans text-sm md:text-base leading-relaxed">
+            公式LINEに登録すると、<br className="md:hidden" />
+            <span className="font-bold text-gray-900">+15分のセッション時間</span>が無料で追加されます
+          </p>
+        </div>
+
+        {/* LINE登録ボタン */}
+        <a
+          href="https://lin.ee/kJbTRkJ"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full bg-[#06C755] text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:bg-[#05B84A] transition-all duration-200 flex items-center justify-center gap-2 text-base md:text-lg group border-2 border-[#06C755]"
+        >
+          <MessageCircle className="w-5 h-5 md:w-6 md:h-6" />
+          <span>公式LINEを友だち追加する</span>
+          <ExternalLink className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+        </a>
+
+        <p className="text-gray-500 text-xs text-center mt-4 font-sans">
+          ※ クーポンコードはLINE登録後に自動で送信されます
+        </p>
       </div>
 
       <div className="mt-12 text-center">
